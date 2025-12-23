@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CrystalCave 💎🌸</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
@@ -21,36 +21,40 @@
   <section class="hero">
     <div class="overlay"></div>
     <div class="hero-content">
-      <h2>Welcome to MyShop!</h2>
+      <h2>Explore various Crystals!</h2>
       <p>Find your favorite crystals in one place 🌸</p>
       <button id="shopBtn">Shop Now</button>
+      <button id="payBtn">Pay Now 💳</button>
+
+      <!-- PayPal Button Container (hidden until Pay Now is clicked) -->
+      <div id="paypal-button-container" style="margin-top: 20px;"></div>
     </div>
   </section>
 
   <section class="products">
     <div class="product-card">
-      <img src="./assets/product1.png" alt="Product 1">
+      <img src="./assets/product1.png" alt="Product 1" />
       <div class="info">
         <h3>Product 1</h3>
         <p>₹200</p>
       </div>
     </div>
     <div class="product-card">
-      <img src="./assets/product2.png" alt="Product 2">
+      <img src="./assets/product2.png" alt="Product 2" />
       <div class="info">
         <h3>Product 2</h3>
         <p>₹500</p>
       </div>
     </div>
     <div class="product-card">
-      <img src="./assets/product3.png" alt="Product 3">
+      <img src="./assets/product3.png" alt="Product 3" />
       <div class="info">
         <h3>Product 3</h3>
         <p>₹600</p>
       </div>
     </div>
     <div class="product-card">
-      <img src="./assets/product4.png" alt="Product 4">
+      <img src="./assets/product4.png" alt="Product 4" />
       <div class="info">
         <h3>Product 4</h3>
         <p>₹400</p>
@@ -59,9 +63,45 @@
   </section>
 
   <footer>
-    &copy; 2025 MyShop. All rights reserved 🌸
+    &copy; 2025 CrystalCave 💎🌸 — All rights reserved.
   </footer>
 
-  <script src="script.js"></script>
+  <!-- PayPal SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AS4-2954ZLohF6Ki9AfraMUHj8FgtmKx5L0X5QfsSzFH4-j8bDLFlNUwI-5A6PDNnqdl2GR7nr87Nee6&currency=USD"></script>
+
+  <script>
+    // Shop Now button
+    document.getElementById("shopBtn").addEventListener("click", () => {
+      alert("Welcome! Product functionality coming soon 🌸");
+    });
+
+    // Pay Now button — renders PayPal dynamically
+    document.getElementById("payBtn").addEventListener("click", function() {
+      // Clear old buttons if any
+      document.getElementById("paypal-button-container").innerHTML = "";
+
+      // Render PayPal button
+      paypal.Buttons({
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              amount: { value: "5.00" }, // 💰 amount in USD
+              description: "CrystalCave Test Purchase 💎🌸"
+            }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            alert("Payment Successful! ✨ Thank you, " + details.payer.name.given_name + " 💕");
+            console.log(details);
+          });
+        },
+        onError: function(err) {
+          console.error(err);
+          alert("Payment failed. Please try again.");
+        }
+      }).render("#paypal-button-container");
+    });
+  </script>
 </body>
 </html>
