@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>
+    Checkout 💳
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="style-new.css"
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+    rel="stylesheet"
+  />
+
+</head>
+
+<body>
+
+<header>
+
+  <h1>
+    CrystalCave 💎🌸
+  </h1>
+
+  <nav>
+
+    <a href="index.html">
+      Home
+    </a>
+
+    <a href="cart.html">
+      Cart 🛒
+    </a>
+
+    <div id="auth-section"></div>
+
+  </nav>
+
+</header>
+
+
+<!-- =========================================
+     CHECKOUT
+========================================= -->
+
+<section class="checkout-section">
+
+  <div class="checkout-container">
+
+
+    <!-- LEFT -->
+
+    <div class="checkout-form">
+
+      <h2>
+        Delivery Details ✨
+      </h2>
+
+      <input
+        type="text"
+        placeholder="Full Name"
+        required
+      />
+
+      <input
+        type="email"
+        placeholder="Email Address"
+        required
+      />
+
+      <input
+        type="text"
+        placeholder="Phone Number"
+        required
+      />
+
+      <textarea
+        placeholder="Shipping Address"
+      ></textarea>
+
+      <select id="paymentMethod">
+
+  <option value="COD">
+    Cash On Delivery
+  </option>
+
+  <option value="PayPal">
+    PayPal Sandbox
+  </option>
+
+</select>
+
+      <button id="placeOrderBtn">
+        Place Order 💖
+      </button>
+
+    </div>
+
+
+    <!-- RIGHT -->
+
+    <div class="checkout-summary">
+
+      <h2>
+        Order Summary 🛒
+      </h2>
+
+      <div id="checkout-items">
+
+      </div>
+
+      <h3 id="checkout-total">
+        Total: ₹0
+      </h3>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================
+     SUCCESS MODAL
+========================================= -->
+
+<div
+  class="order-success"
+  id="orderSuccess"
+>
+
+  <div class="success-box">
+
+    <h2>
+      Order Placed 🎉
+    </h2>
+
+    <p>
+      Your crystals are being prepared
+      with love and positive energy ✨
+    </p>
+
+    <button onclick="goHome()">
+      Continue Shopping
+    </button>
+
+  </div>
+
+</div>
+
+
+<script src="checkout.js"></script>
+
+</body>
+</html>

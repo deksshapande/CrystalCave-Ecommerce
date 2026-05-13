@@ -1,31 +1,54 @@
 // backend/models/Product.js
+
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
+
   name: {
     type: String,
     required: [true, "Product name is required"]
   },
+
   description: {
     type: String,
     default: ""
   },
+
   price: {
     type: Number,
     required: [true, "Product price is required"]
   },
+
   image: {
-    type: String, // single image URL or path
+    type: String,
     default: ""
   },
+
+  color: {
+    type: String,
+    default: "Natural"
+  },
+
+  category: {
+    type: String,
+    default: "Crystal"
+  },
+
+  benefits: {
+    type: [String],
+    default: []
+  },
+
   inStock: {
     type: Boolean,
     default: true
   },
+
   createdAt: {
     type: Date,
     default: Date.now
   }
+
 });
 
 module.exports = mongoose.model("Product", productSchema);

@@ -2,7 +2,7 @@ const express = require("express");
 const Razorpay = require("razorpay");
 const router = express.Router();
 
-// Use your actual Razorpay test key & secret
+
 const razorpay = new Razorpay({
   key_id: "rzp_test_1DP5mmOlF5G5ag",
   key_secret: "YOUR_SECRET_KEY_HERE"

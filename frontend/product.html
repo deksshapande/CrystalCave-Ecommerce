@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Product Details</title>
+
+  <link
+    rel="stylesheet"
+    href="style-new.css"
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+    rel="stylesheet"
+  />
+
+</head>
+
+<body>
+
+<header>
+
+  <h1>CrystalCave 💎🌸</h1>
+
+  <nav>
+
+    <a href="index.html">
+      Home
+    </a>
+
+    <a href="cart.html" id="cart-link">
+
+      Cart 🛒
+
+      <span id="cart-count">
+        0
+      </span>
+
+    </a>
+
+  </nav>
+
+</header>
+
+
+<!-- =====================================
+     PRODUCT HERO
+===================================== -->
+
+<section class="product-hero">
+
+  <div class="hero-left">
+
+    <img id="product-image" />
+
+  </div>
+
+
+  <div class="hero-right">
+
+    <h2 id="product-name"></h2>
+
+    <p id="product-price"></p>
+
+    <p id="product-description"></p>
+
+    <button id="buyBtn">
+      Buy Now
+    </button>
+
+    <button id="cartBtn">
+      Add To Cart 🛒
+    </button>
+
+    <button id="wishlistBtn">
+      Wishlist 🤍
+    </button>
+
+    <button onclick="window.history.back()">
+      ← Back
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================
+     EXTRA INFO
+===================================== -->
+
+<section class="product-extra">
+
+  <div class="extra-left">
+
+    <img id="extra-image" />
+
+  </div>
+
+
+  <div class="extra-right">
+
+    <h3>
+      ✨ About this Crystal
+    </h3>
+
+    <p id="product-usage"></p>
+
+    <h4>Color</h4>
+
+    <p id="product-color"></p>
+
+
+    <h4>Category</h4>
+
+    <p id="product-category"></p>
+
+
+    <h4>Benefits</h4>
+
+    <ul id="product-benefits"></ul>
+
+  </div>
+
+</section>
+
+
+<script>
+
+// =====================================
+// GET PRODUCT ID
+// =====================================
+
+const params =
+  new URLSearchParams(window.location.search);
+
+const id = params.get("id");
+
+let product;
+
+
+// =====================================
+// UPDATE CART COUNT
+// =====================================
+
+function updateCartCount(){
+
+  const cart =
+    JSON.parse(localStorage.getItem("cart")) || [];
+
+  const totalItems =
+    cart.reduce((total, item) => {
+
+      return total + item.quantity;
+
+    }, 0);
+
+  const cartCount =
+    document.getElementById("cart-count");
+
+  if(cartCount){
+
+    cartCount.innerText = totalItems;
+
+  }
+
+}
+
+updateCartCount();
+
+
+// =====================================
+// LOAD PRODUCT
+// =====================================
+
+async function loadProduct() {
+
+  try {
+
+    const res = await fetch(
+      `http://localhost:5000/api/products/${id}`
+    );
+
+    if (!res.ok) {
+
+      throw new Error("Product not found");
+
+    }
+
+    product = await res.json();
+
+
+    // BASIC INFO
+
+    document.getElementById("product-name").innerText =
+      product.name;
+
+    document.getElementById("product-price").innerText =
+      "₹" + product.price;
+
+    document.getElementById("product-image").src =
+      product.image;
+
+    document.getElementById("product-description").innerText =
+      product.description;
+
+
+    // EXTRA IMAGE
+
+    document.getElementById("extra-image").src =
+      product.image;
+
+
+    // USAGE
+
+    document.getElementById("product-usage").innerText =
+      product.description ||
+      "Beautiful crystal with unique energy.";
+
+
+    // COLOR
+
+    document.getElementById("product-color").innerText =
+      product.color || "Natural";
+
+
+    // CATEGORY
+
+    document.getElementById("product-category").innerText =
+      product.category || "Healing";
+
+
+    // BENEFITS
+
+    const benefitsList =
+      document.getElementById("product-benefits");
+
+    benefitsList.innerHTML = "";
+
+    const benefits =
+      product.benefits || [
+        "Energy balance",
+        "Positive vibes"
+      ];
+
+    benefits.forEach((benefit) => {
+
+      const li =
+        document.createElement("li");
+
+      li.innerText = benefit;
+
+      benefitsList.appendChild(li);
+
+    });
+
+
+    // STYLING
+
+    document.querySelector(".extra-right").style.background =
+      "#fff5f7";
+
+    document.querySelector(".product-hero").style.background =
+      "linear-gradient(135deg, #ffe0ec, #ffffff)";
+
+  }
+
+  catch (err) {
+
+    console.error(err);
+
+    document.body.innerHTML = `
+
+      <h2
+        style="
+          text-align:center;
+          margin-top:100px;
+        "
+      >
+        Product not found ❌
+      </h2>
+
+    `;
+
+  }
+
+}
+
+
+// LOAD PRODUCT
+loadProduct();
+
+
+// =====================================
+// ADD TO CART
+// =====================================
+
+document
+  .getElementById("cartBtn")
+  .addEventListener("click", () => {
+
+    const cart =
+      JSON.parse(localStorage.getItem("cart")) || [];
+
+    const existingProduct =
+      cart.find(
+        item => item._id === product._id
+      );
+
+    if(existingProduct){
+
+      existingProduct.quantity++;
+
+    }
+
+    else {
+
+      cart.push({
+
+        _id: product._id,
+
+        name: product.name,
+
+        price: product.price,
+
+        image: product.image,
+
+        quantity: 1
+
+      });
+
+    }
+
+    localStorage.setItem(
+      "cart",
+      JSON.stringify(cart)
+    );
+
+    updateCartCount();
+
+    alert("Added to cart 🛒");
+
+});
+
+// =====================================
+// WISHLIST
+// =====================================
+
+document
+  .getElementById("wishlistBtn")
+  .addEventListener("click", () => {
+
+    let wishlist =
+
+      JSON.parse(
+        localStorage.getItem("wishlist")
+      ) || [];
+
+    const exists = wishlist.find(
+
+      item => item._id === product._id
+
+    );
+
+    if(exists){
+
+      alert(
+        "Already in wishlist 🤍"
+      );
+
+      return;
+
+    }
+
+    wishlist.push(product);
+
+    localStorage.setItem(
+
+      "wishlist",
+
+      JSON.stringify(wishlist)
+
+    );
+
+    alert(
+      "Added to wishlist 💖"
+    );
+
+});
+
+
+// =====================================
+// BUY BUTTON
+// =====================================
+
+document
+  .getElementById("buyBtn")
+  .addEventListener("click", () => {
+
+    const buyNowCart = [
+
+      {
+
+        _id: product._id,
+
+        name: product.name,
+
+        price: product.price,
+
+        image: product.image,
+
+        quantity: 1
+
+      }
+
+    ];
+
+    localStorage.setItem(
+
+      "cart",
+
+      JSON.stringify(buyNowCart)
+
+    );
+
+    window.location.href =
+      "checkout.html";
+
+});
+
+</script>
+
+</body>
+</html>

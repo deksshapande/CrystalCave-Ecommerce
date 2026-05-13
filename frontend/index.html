@@ -2,106 +2,465 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
   <title>CrystalCave 💎🌸</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link
+    rel="stylesheet"
+    href="style-new.css"
+  />
+
+  <style>
+    html{
+      scroll-behavior:smooth;
+    }
+  </style>
+
 </head>
+
+
+
 <body>
-  <header>
-    <h1>CrystalCave💎🌸</h1>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Products</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
-    </nav>
-  </header>
 
-  <section class="hero">
-    <div class="overlay"></div>
-    <div class="hero-content">
-      <h2>Explore various Crystals!</h2>
-      <p>Find your favorite crystals in one place 🌸</p>
-      <button id="shopBtn">Shop Now</button>
-      <button id="payBtn">Pay Now 💳</button>
+<header>
 
-      <!-- PayPal Button Container (hidden until Pay Now is clicked) -->
-      <div id="paypal-button-container" style="margin-top: 20px;"></div>
+  <h1>
+    CrystalCave 💎🌸
+  </h1>
+
+  <nav>
+
+    <a href="#home">
+      Home
+    </a>
+
+    <a href="#products">
+      Products
+    </a>
+
+    <a href="#about">
+      About
+    </a>
+
+    <a href="#contact">
+      Contact
+    </a>
+
+    <a
+      href="cart.html"
+      id="cart-link"
+    >
+      Cart 🛒
+
+      <span id="cart-count">
+        0
+      </span>
+
+    </a>
+
+    <a href="wishlist.html">
+    Wishlist 💖
+    </a>
+
+    <div id="auth-section"></div>
+
+  </nav>
+
+</header>
+
+
+<!-- =========================================
+     HERO
+========================================= -->
+
+<section
+  id="home"
+  class="hero"
+>
+
+  <div class="hero-content">
+
+    <h2>
+      Explore Magical Crystals ✨
+    </h2>
+
+    <p>
+      Discover healing, intuition, manifestation,
+      and positive energy in one beautiful place 🌸
+    </p>
+
+    <button id="shopBtn">
+      Shop Now
+    </button>
+
+    <button id="payBtn">
+      Pay Now 💳
+    </button>
+
+    <div id="paypal-button-container"></div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================
+     FEATURED SECTION
+========================================= -->
+
+<section class="featured-section">
+
+  <div class="section-title">
+
+    <h2>
+      Featured Crystals 💎
+    </h2>
+
+    <p>
+      Our most loved healing crystals selected
+      for beauty, positivity, and energy.
+    </p>
+
+  </div>
+
+
+  <div class="featured-grid">
+
+    <div class="featured-card">
+
+      <img
+        src="./assets/rosequartzz.png"
+        alt="Rose Quartz"
+      >
+
+      <h3>
+        Rose Quartz
+      </h3>
+
+      <p>
+        The crystal of love, calmness,
+        and emotional healing.
+      </p>
+
     </div>
-  </section>
+
+
+    <div class="featured-card">
+
+      <img
+        src="./assets/amethystt.png"
+        alt="Amethyst"
+      >
+
+      <h3>
+        Amethyst
+      </h3>
+
+      <p>
+        Encourages intuition,
+        peace, and clarity.
+      </p>
+
+    </div>
+
+
+    <div class="featured-card">
+
+      <img
+        src="./assets/labradoritee.png"
+        alt="Labradorite"
+      >
+
+      <h3>
+        Labradorite
+      </h3>
+
+      <p>
+        A magical protection crystal
+        full of transformation energy.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================
+     PRODUCTS
+========================================= -->
+
+<section
+  class="products-section"
+  id="products"
+>
+
+  <div class="section-title">
+
+    <h2>
+      Our Crystal Collection ✨
+    </h2>
+
+    <p>
+      Handpicked crystals for healing,
+      intuition, manifestation,
+      and protection.
+    </p>
+
+  </div>
+
+
+  <!-- SEARCH + FILTERS -->
+
+  <div class="product-controls">
+
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search crystals..."
+    />
+
+
+    <div class="filter-buttons">
+
+      <button
+        class="filter-btn active"
+        data-category="All"
+      >
+        All
+      </button>
+
+      <button
+        class="filter-btn"
+        data-category="Healing"
+      >
+        Healing
+      </button>
+
+      <button
+        class="filter-btn"
+        data-category="Manifestation"
+      >
+        Manifestation
+      </button>
+
+      <button
+        class="filter-btn"
+        data-category="Protection"
+      >
+        Protection
+      </button>
+
+      <button
+        class="filter-btn"
+        data-category="Intuition"
+      >
+        Intuition
+      </button>
+
+    </div>
+
+  </div>
+
 
   <section class="products">
-    <div class="product-card">
-      <img src="./assets/product1.png" alt="Product 1" />
-      <div class="info">
-        <h3>Product 1</h3>
-        <p>₹200</p>
-      </div>
-    </div>
-    <div class="product-card">
-      <img src="./assets/product2.png" alt="Product 2" />
-      <div class="info">
-        <h3>Product 2</h3>
-        <p>₹500</p>
-      </div>
-    </div>
-    <div class="product-card">
-      <img src="./assets/product3.png" alt="Product 3" />
-      <div class="info">
-        <h3>Product 3</h3>
-        <p>₹600</p>
-      </div>
-    </div>
-    <div class="product-card">
-      <img src="./assets/product4.png" alt="Product 4" />
-      <div class="info">
-        <h3>Product 4</h3>
-        <p>₹400</p>
-      </div>
-    </div>
+
   </section>
 
-  <footer>
-    &copy; 2025 CrystalCave 💎🌸 — All rights reserved.
-  </footer>
+</section>
 
-  <!-- PayPal SDK -->
-  <script src="https://www.paypal.com/sdk/js?client-id=AS4-2954ZLohF6Ki9AfraMUHj8FgtmKx5L0X5QfsSzFH4-j8bDLFlNUwI-5A6PDNnqdl2GR7nr87Nee6&currency=USD"></script>
 
-  <script>
-    // Shop Now button
-    document.getElementById("shopBtn").addEventListener("click", () => {
-      alert("Welcome! Product functionality coming soon 🌸");
-    });
+<!-- =========================================
+     ABOUT
+========================================= -->
 
-    // Pay Now button — renders PayPal dynamically
-    document.getElementById("payBtn").addEventListener("click", function() {
-      // Clear old buttons if any
-      document.getElementById("paypal-button-container").innerHTML = "";
+<section
+  id="about"
+  class="about-section"
+>
 
-      // Render PayPal button
-      paypal.Buttons({
-        createOrder: function(data, actions) {
-          return actions.order.create({
-            purchase_units: [{
-              amount: { value: "5.00" }, // 💰 amount in USD
-              description: "CrystalCave Test Purchase 💎🌸"
-            }]
-          });
-        },
-        onApprove: function(data, actions) {
-          return actions.order.capture().then(function(details) {
-            alert("Payment Successful! ✨ Thank you, " + details.payer.name.given_name + " 💕");
-            console.log(details);
-          });
-        },
-        onError: function(err) {
-          console.error(err);
-          alert("Payment failed. Please try again.");
-        }
-      }).render("#paypal-button-container");
-    });
-  </script>
+  <div class="about-container">
+
+    <div class="about-text">
+
+      <h2>
+        About CrystalCave 💎
+      </h2>
+
+      <p>
+        At CrystalCave, we believe crystals are
+        more than just beautiful stones —
+        they carry energy, intention,
+        and a deep connection to nature.
+      </p>
+
+      <p>
+        Our goal is to bring carefully curated
+        crystals that not only enhance your
+        space aesthetically but also add
+        meaning and calm to your everyday life.
+      </p>
+
+      <button
+        onclick="window.location.href='knowmore.html'"
+      >
+        Know More →
+      </button>
+
+    </div>
+
+
+    <div class="about-image">
+
+      <img
+        src="./assets/crystals.png"
+        alt="Crystals"
+      />
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================
+     CONTACT
+========================================= -->
+
+<section id="contact">
+
+  <form id="contactForm">
+
+    <h2>
+      Contact Us
+    </h2>
+
+    <input
+      type="text"
+      placeholder="Your Name"
+      required
+    />
+
+    <input
+      type="email"
+      placeholder="Your Email"
+      required
+    />
+
+    <textarea
+      placeholder="Your Message"
+    ></textarea>
+
+    <button type="submit">
+      Send Message
+    </button>
+
+  </form>
+
+</section>
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer>
+
+  <div class="footer-grid">
+
+    <div>
+
+      <h3>
+        CrystalCave 💎
+      </h3>
+
+      <p>
+        Beautiful crystals curated for calmness,
+        positivity, healing,
+        and aesthetic living.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <h4>
+        Quick Links
+      </h4>
+
+      <a href="#home">Home</a>
+      <a href="#products">Products</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+
+    </div>
+
+
+    <div>
+
+      <h4>
+        Crystal Guides
+      </h4>
+
+      <a href="#">
+        Beginner Crystals
+      </a>
+
+      <a href="#">
+        How To Clean Crystals
+      </a>
+
+      <a href="#">
+        Crystal Meanings
+      </a>
+
+    </div>
+
+
+    <div>
+
+      <h4>
+        Follow Us
+      </h4>
+
+      <a href="#">Instagram</a>
+      <a href="#">Pinterest</a>
+      <a href="#">Twitter</a>
+      <a href="#">GitHub</a>
+
+    </div>
+
+  </div>
+
+
+  <p class="copyright">
+    © 2025 CrystalCave 💎🌸
+  </p>
+
+</footer>
+
+
+<!-- PAYPAL -->
+
+<script src="https://www.paypal.com/sdk/js?client-id=AS4-2954ZLohF6Ki9AfraMUHj8FgtmKx5L0X5QfsSzFH4-j8bDLFlNUwI-5A6PDNnqdl2GR7nr87Nee6&currency=USD"></script>
+
+
+<!-- MAIN SCRIPT -->
+
+<script src="script.js"></script>
+<script src="auth.js"></script>
+
 </body>
 </html>
