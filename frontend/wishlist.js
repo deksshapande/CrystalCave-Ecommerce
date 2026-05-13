@@ -7,9 +7,9 @@ let wishlist =
   ) || [];
 
 
-// =========================================
+
 // RENDER WISHLIST
-// =========================================
+
 
 function renderWishlist(){
 
@@ -66,9 +66,9 @@ function renderWishlist(){
 }
 
 
-// =========================================
+
 // REMOVE
-// =========================================
+
 
 function removeWishlist(index){
 

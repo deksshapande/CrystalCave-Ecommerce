@@ -4,9 +4,9 @@ const ordersContainer =
   );
 
 
-// =========================================
+
 // LOAD ORDERS
-// =========================================
+
 
 async function loadOrders(){
 
@@ -132,9 +132,9 @@ async function loadOrders(){
 loadOrders();
 
 
-// =========================================
+
 // UPDATE STATUS
-// =========================================
+
 
 async function updateStatus(
 

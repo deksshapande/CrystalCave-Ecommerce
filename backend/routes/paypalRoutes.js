@@ -5,9 +5,9 @@ const axios = require("axios");
 const router = express.Router();
 
 
-// =========================================
+
 // GET ACCESS TOKEN
-// =========================================
+
 
 async function getAccessToken() {
 
@@ -46,9 +46,9 @@ async function getAccessToken() {
 }
 
 
-// =========================================
+
 // CREATE ORDER
-// =========================================
+
 
 router.post("/create-order", async (req, res) => {
 
@@ -124,9 +124,9 @@ router.post("/create-order", async (req, res) => {
 });
 
 
-// =========================================
+
 // CAPTURE ORDER
-// =========================================
+
 
 router.post("/capture-order", async (req, res) => {
 

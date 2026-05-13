@@ -8,9 +8,9 @@ const Order =
   require("../models/Order");
 
 
-// =========================================
+
 // EMAIL TRANSPORTER
-// =========================================
+
 
 const transporter =
   nodemailer.createTransport({
@@ -30,9 +30,9 @@ const transporter =
   });
 
 
-// =========================================
+
 // TEST ROUTE
-// =========================================
+
 
 router.get("/test", (req, res) => {
 
@@ -46,9 +46,9 @@ router.get("/test", (req, res) => {
 });
 
 
-// =========================================
+
 // CREATE ORDER
-// =========================================
+
 
 router.post("/", async (req, res) => {
 
@@ -70,9 +70,9 @@ router.post("/", async (req, res) => {
     await newOrder.save();
 
 
-    // =========================================
+    
     // EMAIL PRODUCTS
-    // =========================================
+    
 
     const productsHTML =
       newOrder.products.map(product => `
@@ -87,9 +87,9 @@ router.post("/", async (req, res) => {
       `).join("");
 
 
-    // =========================================
+    
     // EMAIL OPTIONS
-    // =========================================
+    
 
     const mailOptions = {
 
@@ -151,18 +151,18 @@ router.post("/", async (req, res) => {
     };
 
 
-    // =========================================
+    
     // SEND EMAIL
-    // =========================================
+    
 
     await transporter.sendMail(
       mailOptions
     );
 
 
-    // =========================================
+    
     // RESPONSE
-    // =========================================
+    
 
     res.status(201).json({
 
@@ -195,9 +195,9 @@ router.post("/", async (req, res) => {
 });
 
 
-// =========================================
+
 // GET ALL ORDERS
-// =========================================
+
 
 router.get("/", async (req, res) => {
 
@@ -227,9 +227,9 @@ router.get("/", async (req, res) => {
 });
 
 
-// =========================================
+
 // UPDATE ORDER STATUS
-// =========================================
+
 
 router.put("/:id", async (req, res) => {
 

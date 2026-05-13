@@ -8,9 +8,9 @@ let cart =
   JSON.parse(localStorage.getItem("cart")) || [];
 
 
-// =========================================
+
 // TOAST
-// =========================================
+
 
 function showToast(message){
 
@@ -39,9 +39,9 @@ function showToast(message){
 }
 
 
-// =========================================
+
 // CART COUNT
-// =========================================
+
 
 function updateCartCount(){
 
@@ -64,9 +64,9 @@ function updateCartCount(){
 }
 
 
-// =========================================
+
 // RENDER CART
-// =========================================
+
 
 function renderCart() {
 
@@ -145,9 +145,9 @@ function renderCart() {
 }
 
 
-// =========================================
+
 // QUANTITY
-// =========================================
+
 
 function increaseQuantity(index) {
 
@@ -170,9 +170,9 @@ function decreaseQuantity(index) {
 }
 
 
-// =========================================
+
 // REMOVE
-// =========================================
+
 
 function removeItem(index) {
 
@@ -192,9 +192,9 @@ function removeItem(index) {
 }
 
 
-// =========================================
+
 // CHECKOUT
-// =========================================
+
 
 document
 .getElementById("checkoutBtn")
@@ -214,8 +214,8 @@ document
 });
 
 
-// =========================================
+
 // START
-// =========================================
+
 
 renderCart();

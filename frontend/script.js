@@ -1,6 +1,6 @@
-// =========================================
+
 // TOAST NOTIFICATION
-// =========================================
+
 
 function showToast(message){
 
@@ -29,9 +29,9 @@ function showToast(message){
 }
 
 
-// =========================================
+
 // SHOP BUTTON
-// =========================================
+
 
 const shopBtn = document.getElementById("shopBtn");
 
@@ -50,9 +50,9 @@ if (shopBtn) {
 }
 
 
-// =========================================
+
 // CART COUNT
-// =========================================
+
 
 function updateCartCount(){
 
@@ -80,9 +80,9 @@ function updateCartCount(){
 updateCartCount();
 
 
-// =========================================
+
 // PRODUCTS
-// =========================================
+
 
 let allProducts = [];
 
@@ -192,9 +192,9 @@ function displayProducts(products){
 loadProducts();
 
 
-// =========================================
+
 // SEARCH
-// =========================================
+
 
 const searchInput =
   document.getElementById("searchInput");
@@ -222,9 +222,9 @@ if(searchInput){
 }
 
 
-// =========================================
+
 // FILTERS
-// =========================================
+
 
 const filterButtons =
   document.querySelectorAll(".filter-btn");
@@ -264,9 +264,9 @@ filterButtons.forEach(button => {
 });
 
 
-// =========================================
+
 // PAYPAL
-// =========================================
+
 
 if(typeof paypal !== "undefined"){
 
@@ -351,9 +351,9 @@ paypal.Buttons({
 }
 
 
-// =========================================
+
 // CONTACT FORM
-// =========================================
+
 
 const contactForm =
   document.getElementById("contactForm");

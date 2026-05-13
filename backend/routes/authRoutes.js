@@ -12,9 +12,9 @@ const User =
   require("../models/User");
 
 
-// =========================================
+
 // EMAIL TRANSPORTER
-// =========================================
+
 
 const transporter =
   nodemailer.createTransport({
@@ -32,9 +32,9 @@ const transporter =
   });
 
 
-// =========================================
+
 // SIGNUP
-// =========================================
+
 
 router.post("/signup", async (req, res) => {
 
@@ -231,9 +231,9 @@ router.post("/signup", async (req, res) => {
 });
 
 
-// =========================================
+
 // LOGIN
-// =========================================
+
 
 router.post("/login", async (req, res) => {
 

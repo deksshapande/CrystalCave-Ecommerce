@@ -11,9 +11,8 @@ const Order =
   require("../models/Order");
 
 
-// =========================================
 // ADMIN MIDDLEWARE
-// =========================================
+
 
 function verifyAdmin(req, res, next){
 
@@ -74,9 +73,7 @@ function verifyAdmin(req, res, next){
 }
 
 
-// =========================================
 // GET ALL ORDERS
-// =========================================
 
 router.get(
   "/orders",
@@ -110,9 +107,8 @@ router.get(
 );
 
 
-// =========================================
+
 // UPDATE ORDER STATUS
-// =========================================
 
 router.put(
   "/orders/:id",
@@ -164,9 +160,9 @@ router.put(
 );
 
 
-// =========================================
+
 // ADD PRODUCT
-// =========================================
+
 
 router.post(
   "/products",
