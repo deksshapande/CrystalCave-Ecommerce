@@ -68,6 +68,11 @@ document
         data.username
       );
 
+      localStorage.setItem(
+        "role",
+        data.role
+      );
+
       alert("Login successful 🌸");
 
       window.location.href =

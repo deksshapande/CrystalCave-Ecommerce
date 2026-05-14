@@ -4,9 +4,29 @@ const ordersContainer =
   );
 
 
+// =========================================
+// ADMIN PROTECTION
+// =========================================
 
+const token =
+  localStorage.getItem("token");
+
+const role =
+  localStorage.getItem("role");
+
+if(!token || role !== "admin"){
+
+  alert("Access denied ❌");
+
+  window.location.href =
+    "login.html";
+
+}
+
+
+// =========================================
 // LOAD ORDERS
-
+// =========================================
 
 async function loadOrders(){
 
@@ -85,19 +105,27 @@ async function loadOrders(){
           )"
         >
 
-          <option value="Processing">
+          <option value="Processing"
+            ${order.orderStatus === "Processing" ? "selected" : ""}
+          >
             Processing
           </option>
 
-          <option value="Shipped">
+          <option value="Shipped"
+            ${order.orderStatus === "Shipped" ? "selected" : ""}
+          >
             Shipped
           </option>
 
-          <option value="Delivered">
+          <option value="Delivered"
+            ${order.orderStatus === "Delivered" ? "selected" : ""}
+          >
             Delivered
           </option>
 
-          <option value="Cancelled">
+          <option value="Cancelled"
+            ${order.orderStatus === "Cancelled" ? "selected" : ""}
+          >
             Cancelled
           </option>
 
@@ -132,9 +160,9 @@ async function loadOrders(){
 loadOrders();
 
 
-
+// =========================================
 // UPDATE STATUS
-
+// =========================================
 
 async function updateStatus(
 
