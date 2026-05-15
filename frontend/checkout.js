@@ -210,7 +210,7 @@ const orderData = {
 
     const res = await fetch(
 
-      "http://localhost:5000/api/orders",
+      "https://crystalcave-backend.onrender.com/api/orders",
 
       {
 

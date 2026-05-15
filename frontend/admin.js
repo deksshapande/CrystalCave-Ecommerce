@@ -34,7 +34,7 @@ async function loadOrders(){
 
     const res = await fetch(
 
-      "http://localhost:5000/api/orders"
+      "https://crystalcave-backend.onrender.com/api/orders"
 
     );
 
@@ -176,7 +176,7 @@ async function updateStatus(
 
     const res = await fetch(
 
-      `http://localhost:5000/api/orders/${orderId}`,
+      `https://crystalcave-backend.onrender.com/api/orders/${orderId}`,
 
       {
 

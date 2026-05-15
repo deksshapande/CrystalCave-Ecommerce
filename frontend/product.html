@@ -186,7 +186,7 @@ async function loadProduct() {
   try {
 
     const res = await fetch(
-      `http://localhost:5000/api/products/${id}`
+      `https://crystalcave-backend.onrender.com/api/products/${id}`
     );
 
     if (!res.ok) {

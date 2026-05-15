@@ -104,7 +104,7 @@ async function loadProducts() {
     }
 
     const res = await fetch(
-      "http://localhost:5000/api/products"
+      "https://crystalcave-backend.onrender.com/api/products"
     );
 
     if (!res.ok) {
@@ -276,7 +276,7 @@ paypal.Buttons({
 
     const response = await fetch(
 
-      "http://localhost:5000/api/paypal/create-order",
+      "https://crystalcave-backend.onrender.com/api/paypal/create-order",
 
       {
 
@@ -306,7 +306,7 @@ paypal.Buttons({
 
     const response = await fetch(
 
-      "http://localhost:5000/api/paypal/capture-order",
+      "https://crystalcave-backend.onrender.com/api/paypal/capture-order",
 
       {
 
@@ -378,7 +378,7 @@ if (contactForm) {
       try {
 
         const res = await fetch(
-          "http://localhost:5000/api/contact",
+          "https://crystalcave-backend.onrender.com/api/contact",
           {
 
             method: "POST",
