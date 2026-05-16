@@ -124,49 +124,65 @@ router.post("/signup", async (req, res) => {
     await newUser.save();
 
 
-    // SEND WELCOME EMAIL
+   // SEND WELCOME EMAIL
 
-    await transporter.sendMail({
+try {
 
-      from: process.env.EMAIL_USER,
+  await transporter.sendMail({
 
-      to: email,
+    from: process.env.EMAIL_USER,
 
-      subject:
-        "Welcome to CrystalCave 💎🌸",
+    to: email,
 
-      html: `
+    subject:
+      "Welcome to CrystalCave 💎🌸",
 
-        <div style="
-          font-family:Poppins,sans-serif;
-          padding:20px;
-        ">
+    html: `
 
-          <h2>
-            Welcome to CrystalCave 💎
-          </h2>
+      <div style="
+        font-family:Poppins,sans-serif;
+        padding:20px;
+      ">
 
-          <p>
-            Hi ${username},
-          </p>
+        <h2>
+          Welcome to CrystalCave 💎
+        </h2>
 
-          <p>
-            Your account was created successfully ✨
-          </p>
+        <p>
+          Hi ${username},
+        </p>
 
-          <p>
-            Thank you for joining our magical crystal universe 🌸
-          </p>
+        <p>
+          Your account was created successfully ✨
+        </p>
 
-          <p>
-            Stay positive and keep shining 💖
-          </p>
+        <p>
+          Thank you for joining our magical crystal universe 🌸
+        </p>
 
-        </div>
+        <p>
+          Stay positive and keep shining 💖
+        </p>
 
-      `
+      </div>
 
-    });
+    `
+
+  });
+
+}
+
+catch(emailErr){
+
+  console.log(
+
+    "Email failed but signup continued:",
+
+    emailErr.message
+
+  );
+
+}
 
 
     // TOKEN
