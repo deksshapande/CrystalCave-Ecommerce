@@ -51,6 +51,8 @@ function logoutUser(){
 
   localStorage.removeItem("username");
 
+  localStorage.removeItem("role");
+
   window.location.href =
     "login.html";
 
