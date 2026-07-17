@@ -4,13 +4,10 @@ const router = express.Router();
 
 const nodemailer = require("nodemailer");
 
-const Order =
-  require("../models/Order");
-
+const Order = require("../models/Order");
 
 
 // EMAIL TRANSPORTER
-
 
 const transporter =
   nodemailer.createTransport({
@@ -30,9 +27,7 @@ const transporter =
   });
 
 
-
 // TEST ROUTE
-
 
 router.get("/test", (req, res) => {
 
@@ -46,17 +41,14 @@ router.get("/test", (req, res) => {
 });
 
 
-
 // CREATE ORDER
-
 
 router.post("/", async (req, res) => {
 
   try {
 
     const orderId =
-      "CC-" +
-      Date.now();
+      "CC-" + Date.now();
 
     const newOrder =
       new Order({
@@ -67,15 +59,21 @@ router.post("/", async (req, res) => {
 
       });
 
+
+    // SAVE ORDER
+
     await newOrder.save();
 
+    console.log(
+      "✅ Order saved successfully"
+    );
 
-    
+
     // EMAIL PRODUCTS
-    
 
     const productsHTML =
-      newOrder.products.map(product => `
+      newOrder.products
+      .map(product => `
 
         <li>
           ${product.name}
@@ -84,12 +82,11 @@ router.post("/", async (req, res) => {
           — ₹${product.price}
         </li>
 
-      `).join("");
+      `)
+      .join("");
 
 
-    
     // EMAIL OPTIONS
-    
 
     const mailOptions = {
 
@@ -151,18 +148,31 @@ router.post("/", async (req, res) => {
     };
 
 
-    
-    // SEND EMAIL
-    
+    // SEND EMAIL (OPTIONAL)
 
-    await transporter.sendMail(
-      mailOptions
-    );
+    try {
+
+      await transporter.sendMail(
+        mailOptions
+      );
+
+      console.log(
+        "✅ Confirmation email sent"
+      );
+
+    }
+
+    catch (emailErr) {
+
+      console.error(
+        "❌ Email failed:",
+        emailErr.message
+      );
+
+    }
 
 
-    
-    // RESPONSE
-    
+    // SUCCESS RESPONSE
 
     res.status(201).json({
 
@@ -179,7 +189,10 @@ router.post("/", async (req, res) => {
 
   catch (err) {
 
-    console.error(err);
+    console.error(
+      "❌ Order Route Error:",
+      err
+    );
 
     res.status(500).json({
 
@@ -195,9 +208,7 @@ router.post("/", async (req, res) => {
 });
 
 
-
 // GET ALL ORDERS
-
 
 router.get("/", async (req, res) => {
 
@@ -227,9 +238,7 @@ router.get("/", async (req, res) => {
 });
 
 
-
 // UPDATE ORDER STATUS
-
 
 router.put("/:id", async (req, res) => {
 
@@ -268,7 +277,7 @@ router.put("/:id", async (req, res) => {
 
   }
 
-  catch(err){
+  catch (err) {
 
     console.error(err);
 
@@ -284,5 +293,6 @@ router.put("/:id", async (req, res) => {
   }
 
 });
+
 
 module.exports = router;
