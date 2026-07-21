@@ -1,5 +1,4 @@
 const express = require("express");
-
 const router = express.Router();
 
 const nodemailer = require("nodemailer");
@@ -9,22 +8,19 @@ const Order = require("../models/Order");
 
 // EMAIL TRANSPORTER
 
-const transporter =
-  nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
 
-    service: "gmail",
+  service: "gmail",
 
-    auth: {
+  auth: {
 
-      user:
-        process.env.EMAIL_USER,
+    user: process.env.EMAIL_USER,
 
-      pass:
-        process.env.EMAIL_PASS
+    pass: process.env.EMAIL_PASS
 
-    }
+  }
 
-  });
+});
 
 
 // TEST ROUTE
@@ -33,8 +29,7 @@ router.get("/test", (req, res) => {
 
   res.json({
 
-    message:
-      "Orders route working ✅"
+    message: "Orders route working ✅"
 
   });
 
@@ -59,7 +54,6 @@ router.post("/", async (req, res) => {
 
       });
 
-
     // SAVE ORDER
 
     await newOrder.save();
@@ -69,7 +63,21 @@ router.post("/", async (req, res) => {
     );
 
 
-    // EMAIL PRODUCTS
+    // SEND SUCCESS IMMEDIATELY
+
+    res.status(201).json({
+
+      success: true,
+
+      message:
+        "Order placed successfully 🌸",
+
+      order: newOrder
+
+    });
+
+
+    // PREPARE EMAIL
 
     const productsHTML =
       newOrder.products
@@ -85,8 +93,6 @@ router.post("/", async (req, res) => {
       `)
       .join("");
 
-
-    // EMAIL OPTIONS
 
     const mailOptions = {
 
@@ -138,7 +144,7 @@ router.post("/", async (req, res) => {
           </p>
 
           <p>
-            We’ll prepare your crystals with love 🌸
+            We'll prepare your crystals with love 🌸
           </p>
 
         </div>
@@ -148,42 +154,25 @@ router.post("/", async (req, res) => {
     };
 
 
-    // SEND EMAIL (OPTIONAL)
+    // SEND EMAIL IN BACKGROUND
 
-    try {
+    transporter
+      .sendMail(mailOptions)
+      .then(() => {
 
-      await transporter.sendMail(
-        mailOptions
-      );
+        console.log(
+          "✅ Confirmation email sent"
+        );
 
-      console.log(
-        "✅ Confirmation email sent"
-      );
+      })
+      .catch((err) => {
 
-    }
+        console.error(
+          "❌ Email failed:",
+          err.message
+        );
 
-    catch (emailErr) {
-
-      console.error(
-        "❌ Email failed:",
-        emailErr.message
-      );
-
-    }
-
-
-    // SUCCESS RESPONSE
-
-    res.status(201).json({
-
-      success: true,
-
-      message:
-        "Order placed successfully 🌸",
-
-      order: newOrder
-
-    });
+      });
 
   }
 
