@@ -1,191 +1,154 @@
 const express = require("express");
-
 const bcrypt = require("bcryptjs");
-
 const jwt = require("jsonwebtoken");
-
 const nodemailer = require("nodemailer");
 
 const router = express.Router();
 
-const User =
-  require("../models/User");
+const User = require("../models/User");
 
-
-
+// =========================================
 // EMAIL TRANSPORTER
+// =========================================
 
-const transporter =
-  nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
 
-    service: "gmail",
+  service: "gmail",
 
-    auth: {
+  auth: {
 
-      user: process.env.EMAIL_USER,
+    user: process.env.EMAIL_USER,
 
-      pass: process.env.EMAIL_PASS
+    pass: process.env.EMAIL_PASS
 
-    }
+  }
 
-  });
+});
 
-
-
+// =========================================
 // SIGNUP
+// =========================================
 
 router.post("/signup", async (req, res) => {
 
   try {
 
     const {
-
       username,
-
       email,
-
       password
-
     } = req.body;
 
-
-    // VALIDATION
-
-    if(
+    if (
       !username ||
       !email ||
       !password
-    ){
+    ) {
 
       return res.status(400).json({
 
         success: false,
-
-        message:
-          "Please fill all fields"
+        message: "Please fill all fields"
 
       });
 
     }
 
-
-    if(password.length < 6){
+    if (password.length < 6) {
 
       return res.status(400).json({
 
         success: false,
-
-        message:
-          "Password must be at least 6 characters"
+        message: "Password must be at least 6 characters"
 
       });
 
     }
-
-
-    // CHECK EXISTING USER
 
     const existingUser =
       await User.findOne({ email });
 
-    if(existingUser){
+    if (existingUser) {
 
       return res.status(400).json({
 
         success: false,
-
-        message:
-          "User already exists"
+        message: "User already exists"
 
       });
 
     }
 
-
-    // HASH PASSWORD
-
     const hashedPassword =
       await bcrypt.hash(password, 10);
-
-
-    // CREATE USER
 
     const newUser =
       new User({
 
         username,
-
         email,
-
         password: hashedPassword
 
       });
 
     await newUser.save();
 
+    // WELCOME EMAIL
 
-   // SEND WELCOME EMAIL
+    try {
 
-try {
+      await transporter.sendMail({
 
-  await transporter.sendMail({
+        from: process.env.EMAIL_USER,
 
-    from: process.env.EMAIL_USER,
+        to: email,
 
-    to: email,
+        subject:
+          "Welcome to CrystalCave 💎🌸",
 
-    subject:
-      "Welcome to CrystalCave 💎🌸",
+        html: `
 
-    html: `
+          <div style="
+            font-family:Poppins,sans-serif;
+            padding:20px;
+          ">
 
-      <div style="
-        font-family:Poppins,sans-serif;
-        padding:20px;
-      ">
+            <h2>
+              Welcome to CrystalCave 💎
+            </h2>
 
-        <h2>
-          Welcome to CrystalCave 💎
-        </h2>
+            <p>
+              Hi ${username},
+            </p>
 
-        <p>
-          Hi ${username},
-        </p>
+            <p>
+              Your account was created successfully ✨
+            </p>
 
-        <p>
-          Your account was created successfully ✨
-        </p>
+            <p>
+              Thank you for joining our magical crystal universe 🌸
+            </p>
 
-        <p>
-          Thank you for joining our magical crystal universe 🌸
-        </p>
+            <p>
+              Stay positive and keep shining 💖
+            </p>
 
-        <p>
-          Stay positive and keep shining 💖
-        </p>
+          </div>
 
-      </div>
+        `
 
-    `
+      });
 
-  });
+    }
 
-}
+    catch (emailErr) {
 
-catch(emailErr){
+      console.log(
+        "Email failed but signup continued:",
+        emailErr.message
+      );
 
-  console.log(
-
-    "Email failed but signup continued:",
-
-    emailErr.message
-
-  );
-
-}
-
-
-    // TOKEN
+    }
 
     const token =
       jwt.sign(
@@ -210,9 +173,6 @@ catch(emailErr){
 
       );
 
-
-    // RESPONSE
-
     res.status(201).json({
 
       success: true,
@@ -229,7 +189,7 @@ catch(emailErr){
 
   }
 
-  catch(err){
+  catch (err) {
 
     console.error(err);
 
@@ -246,62 +206,47 @@ catch(emailErr){
 
 });
 
-
-
+// =========================================
 // LOGIN
+// =========================================
 
 router.post("/login", async (req, res) => {
 
   try {
 
     const {
-
       email,
-
       password
-
     } = req.body;
 
-
-    // VALIDATION
-
-    if(
+    if (
       !email ||
       !password
-    ){
+    ) {
 
       return res.status(400).json({
 
         success: false,
-
-        message:
-          "Please fill all fields"
+        message: "Please fill all fields"
 
       });
 
     }
 
-
-    // FIND USER
-
     const user =
       await User.findOne({ email });
 
-    if(!user){
+    if (!user) {
 
       return res.status(400).json({
 
         success: false,
-
         message:
           "Invalid credentials"
 
       });
 
     }
-
-
-    // PASSWORD CHECK
 
     const isMatch =
       await bcrypt.compare(
@@ -312,12 +257,11 @@ router.post("/login", async (req, res) => {
 
       );
 
-    if(!isMatch){
+    if (!isMatch) {
 
       return res.status(400).json({
 
         success: false,
-
         message:
           "Invalid credentials"
 
@@ -325,8 +269,13 @@ router.post("/login", async (req, res) => {
 
     }
 
+    // DEBUG
 
-    // TOKEN
+    console.log("========== LOGIN ==========");
+    console.log("EMAIL:", user.email);
+    console.log("USERNAME:", user.username);
+    console.log("ROLE FROM DATABASE:", user.role);
+    console.log("===========================");
 
     const token =
       jwt.sign(
@@ -351,9 +300,6 @@ router.post("/login", async (req, res) => {
 
       );
 
-
-    // RESPONSE
-
     res.json({
 
       success: true,
@@ -370,14 +316,13 @@ router.post("/login", async (req, res) => {
 
   }
 
-  catch(err){
+  catch (err) {
 
     console.error(err);
 
     res.status(500).json({
 
       success: false,
-
       message:
         "Login failed"
 
